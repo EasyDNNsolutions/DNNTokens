@@ -1,14 +1,4 @@
-
-
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
-using DotNetNuke.Services.Search.Entities;
 
 namespace DotNetNuke.Modules.DNNTokens.Components
 {
@@ -21,8 +11,7 @@ namespace DotNetNuke.Modules.DNNTokens.Components
 			{
 				switch (version)
 				{
-					case "00.00.01":
-						// run your custom code here
+					case "01.00.0":
 						return "success";
 					default:
 						return "success";

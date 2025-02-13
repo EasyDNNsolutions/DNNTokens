@@ -1,0 +1,11 @@
+syntax: glob
+.vs/
+obj/
+install/
+DNNTokens_00.00.01_Install.zip
+Package/bin/DNNTokens.dll
+Resources.zip
+Package/
+ResourcesZip/
+packages/
+.git/

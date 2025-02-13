@@ -123,6 +123,7 @@
     <Content Include="Assets\bootstrap.min.css" />
     <Content Include="Assets\dnnTokensStyle.css" />
     <Content Include="Assets\admin.css" />
+    <Content Include="Assets\images\module_icon.png" />
     <Content Include="Documentation\Documentation.css" />
     <Content Include="Documentation\Documentation.html" />
     <Content Include="License.txt" />
@@ -146,7 +147,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Providers\DataProviders\SqlDataProvider\00.00.01.SqlDataProvider" />
+    <Content Include="Providers\DataProviders\SqlDataProvider\01.00.00.SqlDataProvider" />
     <Content Include="Providers\DataProviders\SqlDataProvider\Uninstall.SqlDataProvider" />
   </ItemGroup>
   <ItemGroup>

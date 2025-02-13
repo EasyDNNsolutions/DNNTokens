@@ -6,9 +6,9 @@
 <div class="License">
 	<h3>About the DNNTokens</h3>
 	<p class="Owner">
-		<b>Version 00.00.01</b><br /><br />
+		<b>Version 01.00.00</b><br />
 	</p>
 	<p>Description:</p>
 	
-	<h4>Prerelease</h4>
+	<h4>First release.</h4>
 </div>
