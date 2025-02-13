@@ -1,0 +1,25 @@
+﻿IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}[FK_DNNTokens_Token_Users]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}[DNNTokens_Token]'))
+ALTER TABLE {databaseOwner}[DNNTokens_Token] DROP CONSTRAINT [FK_DNNTokens_Token_Users]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}[FK_DNNTokens_Token_DNNTokens_Category]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}[DNNTokens_Token]'))
+ALTER TABLE {databaseOwner}[DNNTokens_Token] DROP CONSTRAINT [FK_DNNTokens_Token_DNNTokens_Category]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}[FK_DNNTokens_PortalTabs_Tabs]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}[DNNTokens_PortalTabs]'))
+ALTER TABLE {databaseOwner}[DNNTokens_PortalTabs] DROP CONSTRAINT [FK_DNNTokens_PortalTabs_Tabs]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}[FK_DNNTokens_GeneralPortalSettings_Portals]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}[DNNTokens_GeneralPortalSettings]'))
+ALTER TABLE {databaseOwner}[DNNTokens_GeneralPortalSettings] DROP CONSTRAINT [FK_DNNTokens_GeneralPortalSettings_Portals]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[DNNTokens_Token]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[DNNTokens_Token]
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[DNNTokens_PortalTabs]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[DNNTokens_PortalTabs]
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[DNNTokens_GeneralPortalSettings]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[DNNTokens_GeneralPortalSettings]
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[DNNTokens_Category]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[DNNTokens_Category]
+GO
