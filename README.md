@@ -24,7 +24,7 @@
 <p>DNN Tokens is fully compatible with all of them. You can place DNN Tokens within <strong>2SXC content</strong>, <strong>Easy DNN</strong>, and even <strong>DNN Go skins</strong> that support token placement.</p>
 <h2 plerdy-tracking-id="98935681301">Credits</h2>
 <ul>
-<li plerdy-tracking-id="33143264901"><strong>Tjep's digital agency</strong> conceived the concept, functionality, and funded the project.</li>
+<li plerdy-tracking-id="33143264901"><a href="https://www.tjeps.com" target="_blank" rel="noopener" plerdy-tracking-id="72556370501"><strong>Tjep's digital agency</strong></a> conceived the concept, functionality, and funded the project.</li>
 <li plerdy-tracking-id="72556370501"><a href="https://www.40fingers.net/" target="_blank" rel="noopener" plerdy-tracking-id="72556370501"><strong>40Fingers</strong></a> designed the architecture to ensure compatibility with other modules.</li>
 <li plerdy-tracking-id="35985459201"><a href="https://www.easydnnsolutions.com/" target="_blank" rel="noopener" plerdy-tracking-id="35985459201"><strong>Easy DNN Solutions</strong></a> handled development and donated countless hours.</li>
 </ul>
