@@ -107,36 +107,46 @@ SELECT category.* FROM " + DbTableName.Category + @" AS category WHERE category.
 		/// Otherwise, it inserts a new record.
 		/// </summary>
 		/// <param name="category">The category to save.</param>
-		public static void SaveCategory(Category category)
+		public static int SaveCategory(Category category)
 		{
+			int insertedId	= 0;
 			using (SqlConnection connection = SqlDataProvider.GetSqlConnection())
 			{
 				using (SqlCommand command = new SqlCommand(
 @"IF EXISTS(SELECT 1 FROM " + DbTableName.Category + @" WHERE Id=@Id) AND @Id <> 0
+BEGIN
 UPDATE" + DbTableName.Category + @"
    SET
 	[PortalId] = @PortalId
 	,[Name] = @Name
  WHERE Id = @Id
+SELECT @Id
+END
 ELSE
+BEGIN
 INSERT INTO " + DbTableName.Category + @"
 (
 [PortalId]
 ,[Name]
 )
-     VALUES
+    VALUES
  (
  @PortalId
 ,@Name
-);", connection))
+)
+SELECT SCOPE_IDENTITY();
+END", connection))
 				{
 					command.Parameters.Add("@Id", SqlDbType.Int).Value = category.Id;
 					command.Parameters.Add("@PortalId", SqlDbType.Int).Value = category.PortalId;
 					command.Parameters.Add("@Name", SqlDbType.NVarChar, 250).Value = category.Name;
 
-					command.ExecuteNonQuery();
+					object resObject = command.ExecuteScalar();
+					if (resObject != DBNull.Value)
+						insertedId = Convert.ToInt32(resObject);
 				}
 			}
+			return insertedId;
 		}
 
 		/// <summary>
@@ -208,14 +218,14 @@ INSERT INTO " + DbTableName.Category + @"
 			}
 		}
 
-		public static void UpdateCategory(int id, string categoryName)
+		public static void UpdateCategory(int id, string name)
 		{
 			using (SqlConnection connection = SqlDataProvider.GetSqlConnection())
 			{
 				using (SqlCommand command = new SqlCommand("UPDATE " + DbTableName.Category + " SET Name=@Name WHERE Id=@Id", connection))
 				{
 					command.Parameters.Add("@Id", SqlDbType.Int).Value = id;
-					command.Parameters.Add("@Name", SqlDbType.NVarChar, 250).Value = categoryName;
+					command.Parameters.Add("@Name", SqlDbType.NVarChar, 250).Value = name;
 					command.ExecuteNonQuery();
 				}
 			}

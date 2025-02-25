@@ -124,7 +124,7 @@
     <value>Add token</value>
   </data>
 	<data name="lblTokenValue.Help" xml:space="preserve">
-    <value>Enter a token description</value>
+    <value>Enter a token value</value>
   </data>
 	<data name="lblTokenValue.Text" xml:space="preserve">
     <value>Token value</value>
@@ -296,5 +296,90 @@
 	</data>
 	<data name="ClearCache.Text" xml:space="preserve">
 		<value>Clear cache</value>
+	</data>
+	<data name="lblTokenDescription.Text" xml:space="preserve">
+		<value>Token description</value>
+	</data>
+	<data name="lblTokenDescription.Help" xml:space="preserve">
+		<value>Enter token description.</value>
+	</data>
+	<data name="SearchTokens.Text" xml:space="preserve">
+		<value>Search tokens</value>
+	</data>
+	<data name="btnSearchTokens.Text" xml:space="preserve">
+		<value>Search</value>
+	</data>
+	<data name="txtTokensSearch.Placeholder" xml:space="preserve">
+		<value>sdfsdf</value>
+	</data>
+	<data name="btnClearSearch.Text" xml:space="preserve">
+		<value>Clear</value>
+	</data>
+	<data name="ExportImport.Text" xml:space="preserve">
+		<value>Export/Import</value>
+	</data>
+	<data name="Export.Text" xml:space="preserve">
+		<value>Export</value>
+	</data>
+	<data name="Import.Text" xml:space="preserve">
+		<value>Import</value>
+	</data>
+	<data name="lblExportFilename.Text" xml:space="preserve">
+		<value>Enter filename</value>
+	</data>
+	<data name="lblExportFilename.Help" xml:space="preserve">
+		<value>Enter export filename.</value>
+	</data>
+	<data name="ExportImportTitle.Text" xml:space="preserve">
+		<value>Export import</value>
+	</data>
+	<data name="btnExportTokens.Text" xml:space="preserve">
+		<value>Export</value>
+	</data>
+	<data name="rfvExportFilename.Required" xml:space="preserve">
+		<value>Enter filename</value>
+	</data>
+	<data name="hlDownloadxlsxFile.Text" xml:space="preserve">
+		<value>Download xlsx file.</value>
+	</data>
+	<data name="lblExcelFileUpload.Text" xml:space="preserve">
+		<value>Upload Excel file</value>
+	</data>
+	<data name="lblExcelFileUpload.Help" xml:space="preserve">
+		<value>Upload Excel file to import data.</value>
+	</data>
+	<data name="btnImportTokens.Text" xml:space="preserve">
+		<value>Upload and import</value>
+	</data>
+	<data name="SelectFile.Text" xml:space="preserve">
+		<value>Select file to upload</value>
+	</data>
+	<data name="NotExcelFile.Text" xml:space="preserve">
+		<value>Error: Not an Excel file.</value>
+	</data>
+	<data name="TokensImported.Text" xml:space="preserve">
+		<value>Number of imported tokens: {0}. &lt;br /&gt; Number of updated tokens: {1}.</value>
+	</data>
+	<data name="ExcelFileExported.Text" xml:space="preserve">
+		<value>Excel file exported.</value>
+	</data>
+	<data name="lblExportInfo.Text" xml:space="preserve">
+		<value>Export all portal tokens into Excel xlsx file.</value>
+	</data>
+	<data name="lblImportInfo.Text" xml:space="preserve">
+		<value>Import tokens from an Excel file (.xlsx).
+
+To get a sample Excel file, perform an export of tokens from the module. Only the 'Name' and 'TokenValue' columns are required.
+
+If a token with the same name already exists in the module, it will be updated with the value from the Excel file. If the token does not exist, a new token will be created in the module.</value>
+	</data>
+	<data name="Sorting.Text" xml:space="preserve">
+		<value>Sorting:</value>
+	</data>
+	<data name="PageSize.Text" xml:space="preserve">
+		<value>Page size:</value>
+	</data>
+	<data name="NoTokensFound.Text" xml:space="preserve">
+		<value>No tokens found.</value>
 	</data>
 </root>

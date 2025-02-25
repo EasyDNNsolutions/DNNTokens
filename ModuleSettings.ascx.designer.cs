@@ -51,6 +51,15 @@ namespace DotNetNuke.Modules.DNNTokens
 		protected global::System.Web.UI.WebControls.Button navAdEditCategory;
 
 		/// <summary>
+		/// navExportImport control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Button navExportImport;
+
+		/// <summary>
 		/// navGeneralPortalSettings control.
 		/// </summary>
 		/// <remarks>
@@ -103,6 +112,15 @@ namespace DotNetNuke.Modules.DNNTokens
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
 		protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTokenName;
+
+		/// <summary>
+		/// txtTokenDescription control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.TextBox txtTokenDescription;
 
 		/// <summary>
 		/// txtTokenValue control.
@@ -294,6 +312,60 @@ namespace DotNetNuke.Modules.DNNTokens
 		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTokenList;
 
 		/// <summary>
+		/// pnlSearchTokens control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Panel pnlSearchTokens;
+
+		/// <summary>
+		/// txtTokensSearch control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.TextBox txtTokensSearch;
+
+		/// <summary>
+		/// rfvTokensSearch control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTokensSearch;
+
+		/// <summary>
+		/// btnSearchTokens control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Button btnSearchTokens;
+
+		/// <summary>
+		/// btnClearSearch control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Button btnClearSearch;
+
+		/// <summary>
+		/// ddlTokensGridViewSorting control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.DropDownList ddlTokensGridViewSorting;
+
+		/// <summary>
 		/// gvTokenList control.
 		/// </summary>
 		/// <remarks>
@@ -303,6 +375,33 @@ namespace DotNetNuke.Modules.DNNTokens
 		protected global::System.Web.UI.WebControls.GridView gvTokenList;
 
 		/// <summary>
+		/// divNotokensFound control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divNotokensFound;
+
+		/// <summary>
+		/// divPaginationSelect control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPaginationSelect;
+
+		/// <summary>
+		/// ddlPaginationSelec control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.DropDownList ddlPaginationSelec;
+
+		/// <summary>
 		/// divNoTokensMessage control.
 		/// </summary>
 		/// <remarks>
@@ -310,6 +409,123 @@ namespace DotNetNuke.Modules.DNNTokens
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
 		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divNoTokensMessage;
+
+		/// <summary>
+		/// divExportImport control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divExportImport;
+
+		/// <summary>
+		/// lbExport control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.LinkButton lbExport;
+
+		/// <summary>
+		/// lbImport control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.LinkButton lbImport;
+
+		/// <summary>
+		/// pnlExport control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Panel pnlExport;
+
+		/// <summary>
+		/// txtExportFilename control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.TextBox txtExportFilename;
+
+		/// <summary>
+		/// rfvExportFilename control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvExportFilename;
+
+		/// <summary>
+		/// lblExportTokenMessage control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Label lblExportTokenMessage;
+
+		/// <summary>
+		/// hlDownloadxlsxFile control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.HyperLink hlDownloadxlsxFile;
+
+		/// <summary>
+		/// btnExportTokens control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Button btnExportTokens;
+
+		/// <summary>
+		/// pnlImport control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Panel pnlImport;
+
+		/// <summary>
+		/// fuExcelFileUpload control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.FileUpload fuExcelFileUpload;
+
+		/// <summary>
+		/// lblImportTokenMessage control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Label lblImportTokenMessage;
+
+		/// <summary>
+		/// btnImportTokens control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Button btnImportTokens;
 
 		/// <summary>
 		/// pnlGeneralPortalSettings control.

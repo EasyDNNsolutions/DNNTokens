@@ -4,7 +4,17 @@
 </p>
 <hr/>
 <div class="License">
-	<h3>About the DNNTokens</h3>
+	<h3>Updates</h3>
+	<p class="Owner">
+		<b>Version 01.01.00</b><br /><br />
+	</p>	
+	<h4>Added features:</h4>
+	<ul>
+			<li>Added optional "Description" field for tokens</li>
+			<li>Search tokens by name, description or vale</li>
+			<li>Export/Import tokens to and from Excel file</li>
+	</ul>
+	<br />
 	<p class="Owner">
 		<b>Version 01.00.00</b><br />
 	</p>

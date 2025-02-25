@@ -13,6 +13,7 @@ namespace DotNetNuke.Modules.DNNTokens.Components.Models
 		public int Id { get; set; }
 		public int PortalId { get; set; }
 		public string Name { get; set; }
+		public string Description { get; set; }
 		public string TokenValue { get; set; }
 		public int? CategoryId { get; set; }
 		public TokenType TokenType { get; set; }

@@ -1,0 +1,5 @@
+﻿IF NOT EXISTS  (select * from INFORMATION_SCHEMA.columns where table_name = 'DNNTokens_Token' and column_name = 'Description')
+BEGIN
+	ALTER TABLE {databaseOwner}[DNNTokens_Token] ADD Description NVARCHAR(4000) NULL
+END
+GO

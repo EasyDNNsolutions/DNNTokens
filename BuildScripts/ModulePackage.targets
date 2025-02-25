@@ -68,6 +68,18 @@
 
     <Copy SourceFiles="$(MSBuildDnnBinPath)\$(AssemblyName).dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
 	<Copy SourceFiles="$(MSBuildDnnBinPath)\RazorEngine.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\ClosedXML.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\ClosedXML.Parser.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\DocumentFormat.OpenXml.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\ExcelNumberFormat.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\Irony.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\SixLabors.Fonts.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\System.Buffers.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\System.IO.Packaging.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\System.Memory.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\System.Numerics.Vectors.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\XLParser.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\System.Runtime.CompilerServices.Unsafe.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
     <Copy SourceFiles="@(SqlDataProviderFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
     <Copy SourceFiles="@(PackageManifestFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package" />
     <Copy SourceFiles="@(PackageTxtFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package" />
@@ -97,6 +109,18 @@
     
     <Copy SourceFiles="$(MSBuildDnnBinPath)\$(AssemblyName).dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
 	<Copy SourceFiles="$(MSBuildDnnBinPath)\RazorEngine.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\ClosedXML.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\ClosedXML.Parser.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\DocumentFormat.OpenXml.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\ExcelNumberFormat.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\Irony.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\SixLabors.Fonts.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\System.Buffers.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\System.IO.Packaging.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\System.Memory.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\System.Numerics.Vectors.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\XLParser.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+	<Copy SourceFiles="$(MSBuildDnnBinPath)\System.Runtime.CompilerServices.Unsafe.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
     <Copy SourceFiles="@(SqlDataProviderFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
     <Copy SourceFiles="@(PackageManifestFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package" />
     <Copy SourceFiles="@(PackageTxtFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package" />

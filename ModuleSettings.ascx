@@ -38,10 +38,11 @@
 				<asp:Button runat="server" ID="navAdEditToken" CssClass="nav-link active btn btn-outline-secondary dnnT_iconButton dnnT_add" Text="Add token" resourcekey="AddToken" OnClick="navAdEditToken_Click"></asp:Button>
 				<asp:Button runat="server" ID="navTokensList" CssClass="nav-link btn btn-outline-secondary dnnT_iconButton dnnT_list" Text="Token list" resourcekey="TokenList" OnClick="navTokensList_Click"></asp:Button>
 				<asp:Button runat="server" ID="navAdEditCategory" CssClass="nav-link btn btn-outline-secondary dnnT_iconButton dnnT_categories" Text="Categories" resourcekey="Categories" OnClick="navAdEditCategory_Click"></asp:Button>
+				<asp:Button runat="server" ID="navExportImport" CssClass="nav-link btn btn-outline-secondary dnnT_iconButton dnnT_exportImport" Text="Export/Import" resourcekey="ExportImport" OnClick="navExportImport_Click"></asp:Button>
 				<asp:Button runat="server" ID="navGeneralPortalSettings" CssClass="nav-link btn btn-outline-secondary dnnT_iconButton dnnT_settings" Text="Settings" resourcekey="Settings" OnClick="navGeneralPortalSettings_Click"></asp:Button>
 				<hr />
 				<asp:Button runat="server" ID="btnClearCache" CssClass="nav-link btn btn-outline-secondary dnnT_iconButton dnnT_clearCache" Text="Clear Cache" resourcekey="ClearCache" OnClick="btnClearCache_Click"></asp:Button>
-				<asp:HyperLink ID="hlCloseSettings" runat="server" resourcekey="Close" CssClass="nav-link btn btn-outline-danger dnnT_iconButton dnnt_close"  >Close</asp:HyperLink>
+				<asp:HyperLink ID="hlCloseSettings" runat="server" resourcekey="Close" CssClass="nav-link btn btn-outline-danger dnnT_iconButton dnnt_close">Close</asp:HyperLink>
 			</div>
 		</nav>
 	</div>
@@ -53,6 +54,10 @@
 					<label for="txtTokenName" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="<%=LocalizeString("lblName.Help")%>"><%=LocalizeString("lblName.Text")%></label>
 					<asp:TextBox ID="txtTokenName" runat="server" class="form-control" MaxLength="250" />
 					<asp:RequiredFieldValidator ID="rfvTokenName" class="invalid-feedback" runat="server" resourcekey="TokenName.Required" Display="Dynamic" ControlToValidate="txtTokenName" ValidationGroup="vgAddToken" />
+				</div>
+				<div class="mb-3">
+					<label for="txtTokenDescription" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="<%=LocalizeString("lblTokenDescription.Help")%>"><%=LocalizeString("lblTokenDescription.Text")%></label>
+					<asp:TextBox ID="txtTokenDescription" runat="server" TextMode="MultiLine" CssClass="form-control" Rows="2" Columns="20" MaxLength="4000" />
 				</div>
 				<div class="mb-3">
 					<label for="txtTokenValue" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="<%=LocalizeString("lblTokenValue.Help")%>"><%=LocalizeString("lblTokenValue.Text")%></label>
@@ -102,7 +107,7 @@
 			<h2 class="mb-3"><%=LocalizeString("AddCategory.Text")%></h2>
 			<fieldset>
 				<div class="mb-3">
-					<label cssclass="form-label" for="txtCategoryName" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="<%=LocalizeString("lblCategoryName.Help")%>"><%=LocalizeString("lblCategoryName.Text")%></label>
+					<label class="form-label" for="txtCategoryName" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="<%=LocalizeString("lblCategoryName.Help")%>"><%=LocalizeString("lblCategoryName.Text")%></label>
 					<asp:TextBox ID="txtCategoryName" runat="server" CssClass="form-control" MaxLength="250" />
 					<asp:RequiredFieldValidator ID="rfvCategoryName" CssClass="invalid-feedback" runat="server" resourcekey="CategoryName.Required" Display="Dynamic" ControlToValidate="txtCategoryName" ValidationGroup="vgAddCategory" />
 				</div>
@@ -155,11 +160,45 @@
 
 		<div class="p-3 p-lg-5" runat="server" id="divTokenList" visible="false">
 			<h2 class="mb-3"><%=LocalizeString("TokenList.Text")%></h2>
+			<asp:Panel runat="server" ID="pnlSearchTokens" DefaultButton="btnSearchTokens">
+				<div class="d-flex mb-3 flex-column flex-lg-row">
+					<div class="search-container my-1">
+						<asp:TextBox ID="txtTokensSearch" runat="server" class="form-control" MaxLength="250" ValidationGroup="vgSearchTokens" />
+						<asp:RequiredFieldValidator ID="rfvTokensSearch" class="invalid-feedback" runat="server" Display="Dynamic" ControlToValidate="txtTokensSearch" ValidationGroup="vgSearchTokens" SetFocusOnError="True" />
+					</div>
+					<div class="m-1">
+						<asp:Button ID="btnSearchTokens" runat="server" OnClick="btnSearchTokens_Click" resourcekey="btnSearchTokens" CssClass="btn btn-primary" ValidationGroup="vgSearchTokens" />
+						<asp:Button ID="btnClearSearch" runat="server" resourcekey="btnClearSearch" OnClick="btnClearSearch_Click" CssClass="btn btn-secondary btn-outline-light" />
+					</div>
+					<div class="ms-auto d-flex my-1">
+						<label id="lblSorting" class="col-form-label me-2" for="ddlTokensGridViewSorting"><%=LocalizeString("Sorting.Text")%></label>
+						<asp:DropDownList ID="ddlTokensGridViewSorting" runat="server" class="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlTokensGridViewSorting_SelectedIndexChanged">
+							<asp:ListItem Selected="True" Text="Id ASC" Value="0"></asp:ListItem>
+							<asp:ListItem Text="ID DESC" Value="1"></asp:ListItem>
+							<asp:ListItem Text="Token name ASC" Value="2"></asp:ListItem>
+							<asp:ListItem Text="Token name DESC" Value="3"></asp:ListItem>
+							<asp:ListItem Text="Category name ASC" Value="4"></asp:ListItem>
+							<asp:ListItem Text="Category name DESC" Value="5"></asp:ListItem>
+						</asp:DropDownList>
+					</div>
+				</div>
+			</asp:Panel>
 			<div class="table-responsive">
-				<asp:GridView ID="gvTokenList" Width="100%" AutoGenerateColumns="false" runat="server" CssClass="table table-striped table-hover" ShowFooter="True" DataKeyNames="Id" DataSourceID="odsTokenList" AllowPaging="True" PageSize="10" OnRowCommand="gvTokenList_RowCommand">
+				<asp:GridView ID="gvTokenList" Width="100%" AutoGenerateColumns="false" runat="server" CssClass="table table-striped table-hover" ShowFooter="False" DataKeyNames="Id" DataSourceID="odsTokenList" AllowPaging="True" PageSize="10" OnRowCommand="gvTokenList_RowCommand" OnDataBound="gvTokenList_DataBound" AllowSorting="False">
 					<HeaderStyle VerticalAlign="Top" />
 					<FooterStyle />
-					<PagerStyle CssClass="pagination" />
+					<PagerStyle />
+					<PagerTemplate>
+						<ul class="pagination m-0 justify-content-center">
+							<asp:Repeater ID="rptPager" runat="server" OnItemCommand="rptPager_ItemCommand">
+								<ItemTemplate>
+									<li class="page-item">
+										<asp:LinkButton ID="lnkPage" runat="server" CommandName="ChangePage" CommandArgument='<%# Container.DataItem %>' CssClass='<%#((gvTokenList.PageIndex + 1).ToString() == Container.DataItem.ToString() ? "page-link active" : "page-link") %>'><%# Container.DataItem %></asp:LinkButton>
+									</li>
+								</ItemTemplate>
+							</asp:Repeater>
+						</ul>
+					</PagerTemplate>
 					<Columns>
 						<asp:TemplateField HeaderText="Action">
 							<ItemTemplate>
@@ -182,11 +221,18 @@
 							<ItemStyle CssClass="text-center bg-light" Width="150" />
 							<HeaderStyle CssClass="text-center" Width="150" />
 						</asp:TemplateField>
+						<asp:TemplateField HeaderText="Token description">
+							<ItemTemplate>
+								<asp:Label ID="lblTokenDescription" runat="server" Text='<%# Eval("Description") %>' CssClass="form-control-plaintext" />
+							</ItemTemplate>
+							<ItemStyle Width="250" />
+							<HeaderStyle CssClass="text-center" Width="250" />
+						</asp:TemplateField>
 						<asp:TemplateField HeaderText="Token value">
 							<ItemTemplate>
 								<asp:Label ID="lblTokenValue" runat="server" Text='<%#Server.HtmlEncode(Eval("TokenValue").ToString()) %>' CssClass="form-control-plaintext" />
 							</ItemTemplate>
-							<ItemStyle />
+							<ItemStyle CssClass="text-center bg-light" />
 							<HeaderStyle />
 						</asp:TemplateField>
 						<asp:TemplateField HeaderText="Category name">
@@ -198,10 +244,10 @@
 						</asp:TemplateField>
 						<asp:TemplateField HeaderText="Token">
 							<ItemTemplate>
-								<asp:Label ID="lblTokenUsage" runat="server" Text='<%#"[{"+ (String.IsNullOrEmpty(Eval("CategoryName") as string)?"": Eval("CategoryName")+":")+Eval("Name")+"}]"%>' CssClass="form-control-plaintext" />
+								<asp:Label ID="lblTokenUsage" runat="server" Text='<%#"[{" + (String.IsNullOrEmpty(Eval("CategoryName") as string) ? "" : Eval("CategoryName") + ":") + Eval("Name") + "}]"%>' CssClass="form-control-plaintext" />
 								<%if (IsSecure)
 									{ %>
-								<button type="button" class="btn btn-outline-info btn-sm" onclick='<%# "copyToClipboard(\"[{" + (String.IsNullOrEmpty(Eval("CategoryName") as string)?"": Eval("CategoryName")+":")+Eval("Name") + "}]\");" %>'>Copy</button>
+								<button type="button" class="btn btn-outline-info btn-sm" onclick='<%# "copyToClipboard(\"[{" + (String.IsNullOrEmpty(Eval("CategoryName") as string) ? "" : Eval("CategoryName") + ":") + Eval("Name") + "}]\");" %>'>Copy</button>
 								<%} %>
 							</ItemTemplate>
 							<ItemStyle />
@@ -221,6 +267,20 @@
 						</asp:TemplateField>
 					</Columns>
 				</asp:GridView>
+				<div id="divNotokensFound" runat="server" visible="false" class="mb-3 mt-4 alert alert-primary" role="alert">
+					<label><%=LocalizeString("NoTokensFound.Text")%></label>
+				</div>
+				<div runat="server" id="divPaginationSelect" class="d-flex">
+					<div class="d-inline-flex flex-nowrap align-items-center pb-3 ms-auto">
+						<label id="lblPagingSize" class="text-nowrap pe-2" for="ddlTokensGridViewSorting"><%=LocalizeString("PageSize.Text")%></label>
+						<asp:DropDownList ID="ddlPaginationSelec" runat="server" class="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlPaginationSelec_SelectedIndexChanged">
+							<asp:ListItem Selected="True" Text="10" Value="10"></asp:ListItem>
+							<asp:ListItem Text="20" Value="20"></asp:ListItem>
+							<asp:ListItem Text="50" Value="50"></asp:ListItem>
+							<asp:ListItem Text="100" Value="100"></asp:ListItem>
+						</asp:DropDownList>
+					</div>
+				</div>
 				<div runat="server" id="divNoTokensMessage" visible="false" class="container py-5 mb-4 bg-light rounded-3">
 					<div class="jumbotron jumbotron-fluid">
 						<div class="container">
@@ -229,6 +289,56 @@
 					</div>
 				</div>
 			</div>
+		</div>
+
+		<div class="p-3 p-lg-5" runat="server" id="divExportImport" visible="false">
+			<h2 class="mb-3"><%=LocalizeString("ExportImportTitle.Text")%></h2>
+			<ul class="nav nav-tabs mx-0">
+				<li class="nav-item">
+					<asp:LinkButton CssClass="nav-link active" runat="server" ID="lbExport" OnClick="lbExport_Click"><%=LocalizeString("Export.Text")%></asp:LinkButton>
+				</li>
+				<li class="nav-item">
+					<asp:LinkButton CssClass="nav-link" runat="server" ID="lbImport" OnClick="lbImport_Click"><%=LocalizeString("Import.Text")%></asp:LinkButton>
+				</li>
+			</ul>
+			<asp:Panel ID="pnlExport" runat="server" CssClass="p-3 p-lg-4 bg-white border border-top-0">
+				<fieldset>
+					<div class="mb-3 alert alert-primary" role="alert">
+						<label class="form-label"><%=LocalizeString("lblExportInfo.Text")%></label>
+					</div>
+					<div class="mb-3">
+						<label for="txtExportFilename" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="<%=LocalizeString("lblExportFilename.Help")%>"><%=LocalizeString("lblExportFilename.Text")%></label>
+						<asp:TextBox ID="txtExportFilename" runat="server" class="form-control" MaxLength="250" />
+						<asp:RequiredFieldValidator ID="rfvExportFilename" class="invalid-feedback" runat="server" resourcekey="rfvExportFilename.Required" Display="Dynamic" ControlToValidate="txtExportFilename" ValidationGroup="vgExport" />
+					</div>
+					<div class="mb-3">
+						<asp:Label ID="lblExportTokenMessage" runat="server" CssClass="dnnFormMessage" EnableViewState="false" Visible="false"></asp:Label>
+					</div>
+					<asp:HyperLink ID="hlDownloadxlsxFile" ResourceKey="hlDownloadxlsxFile" runat="server" Visible="false" Text="Download file."></asp:HyperLink>
+					<hr class="my-4">
+					<div class="mb-3">
+						<asp:Button ID="btnExportTokens" runat="server" resourcekey="btnExportTokens" CssClass="btn btn-primary btn-lg" ValidationGroup="vgExport" OnClick="btnExportTokens_Click" />
+					</div>
+				</fieldset>
+			</asp:Panel>
+			<asp:Panel ID="pnlImport" runat="server" Visible="false" CssClass="p-3 p-lg-4 bg-white border border-top-0">
+				<fieldset>
+					<div class="mb-3 alert alert-primary" role="alert">
+						<label class="form-label"><%=LocalizeString("lblImportInfo.Text")%></label>
+					</div>
+					<div class="mb-3">
+						<label for="fuExcelFileUpload" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="<%=LocalizeString("lblExcelFileUpload.Help")%>"><%=LocalizeString("lblExcelFileUpload.Text")%></label>
+						<asp:FileUpload ID="fuExcelFileUpload" runat="server" CssClass="form-control" />
+					</div>
+					<div class="mb-3">
+						<asp:Label ID="lblImportTokenMessage" runat="server" CssClass="dnnFormMessage" EnableViewState="false" Visible="false"></asp:Label>
+					</div>
+					<hr class="my-4">
+					<div class="mb-3">
+						<asp:Button ID="btnImportTokens" runat="server" resourcekey="btnImportTokens" CssClass="btn btn-primary btn-lg" OnClick="btnImportTokens_Click" />
+					</div>
+				</fieldset>
+			</asp:Panel>
 		</div>
 
 		<asp:Panel class="p-3 p-lg-5" runat="server" ID="pnlGeneralPortalSettings" Visible="false" DefaultButton="btnAddCategory">
@@ -262,63 +372,68 @@
 			</fieldset>
 		</asp:Panel>
 	</div>
-	<script type="text/javascript">
-		function showToast() {
-			$(document).ready(function () {
-				const toastLiveExample = document.getElementById('liveToastMessage')
-				const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-				toastBootstrap.hide();
-				toastBootstrap.show();
-			});
-		}
+</div>
+<script type="text/javascript">
+	function showToast() {
+		$(document).ready(function () {
+			const toastLiveExample = document.getElementById('liveToastMessage')
+			const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+			toastBootstrap.hide();
+			toastBootstrap.show();
+		});
+	}
 
-		function initTooltips() {
-			var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-			var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-				return new bootstrap.Tooltip(tooltipTriggerEl)
+	function initTooltips() {
+		var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+		var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+			return new bootstrap.Tooltip(tooltipTriggerEl, {
+				delay: { "show": 700, "hide": 100 }
 			})
+		})
+	}
+
+	function copyToClipboard(copyText) {
+		navigator.clipboard.writeText(copyText)
+			.then(() => {
+				$('#<%=lblToastMessage.ClientID %>').text('Copied to clipboard.');
+				showToast();
+			})
+			.catch((error) => { console.log('Copy failed. Error: ${error}') })
+	}
+
+	initTooltips();
+	function pageLoad(sender, args) {
+		if (args.get_isPartialLoad()) {
+			initTooltips();
 		}
+	}
 
-		function copyToClipboard(copyText) {
-			navigator.clipboard.writeText(copyText)
-				.then(() => {
-					$('#<%=lblToastMessage.ClientID %>').text('Copied to clipboard.');
-					showToast();
-				})
-				.catch((error) => { console.log('Copy failed. Error: ${error}') })
-		}
+</script>
 
-		initTooltips();
-		function pageLoad(sender, args) {
-			if (args.get_isPartialLoad()) {
-				initTooltips();
-			}
-		}
+<asp:ObjectDataSource ID="odsTokenList" TypeName="DotNetNuke.Modules.DNNTokens.DataProvider.DbContext.TokenDb" runat="server" EnablePaging="True" SelectMethod="GetPortalTokens" SelectCountMethod="GetTotalNumberOfTokensByPortalId">
+	<SelectParameters>
+		<asp:Parameter Name="portalId" Type="Int32" />
+		<asp:Parameter Name="maximumRows" Type="Int32" DefaultValue="10" />
+		<asp:Parameter Name="startRowIndex" Type="Int32" DefaultValue="1" />
+		<asp:Parameter Name="sortTerm" Type="String" DefaultValue="0" />
+		<asp:Parameter Name="searchTerm" Type="String" DefaultValue="" />
+	</SelectParameters>
+</asp:ObjectDataSource>
 
-	</script>
+<asp:ObjectDataSource ID="odsCategoryList" TypeName="DotNetNuke.Modules.DNNTokens.DataProvider.DbContext.CategoryDb" runat="server" EnablePaging="True" SelectMethod="GetPortalCategories" SelectCountMethod="GetTotalNumberOfCategoriesByPortalId" UpdateMethod="UpdateCategory">
+	<SelectParameters>
+		<asp:Parameter Name="portalId" Type="Int32" />
+		<asp:Parameter Name="maximumRows" Type="Int32" DefaultValue="10" />
+		<asp:Parameter Name="startRowIndex" Type="Int32" DefaultValue="1" />
+	</SelectParameters>
+	<UpdateParameters>
+		<asp:Parameter Name="ID" Type="Int32" />
+		<asp:Parameter Name="Name" Type="String" />
+	</UpdateParameters>
+</asp:ObjectDataSource>
 
-	<asp:ObjectDataSource ID="odsTokenList" TypeName="DotNetNuke.Modules.DNNTokens.DataProvider.DbContext.TokenDb" runat="server" EnablePaging="True" SelectMethod="GetPortalTokens" SelectCountMethod="GetTotalNumberOfTokensByPortalId">
-		<SelectParameters>
-			<asp:Parameter Name="portalId" Type="Int32" />
-			<asp:Parameter Name="maximumRows" Type="Int32" DefaultValue="10" />
-			<asp:Parameter Name="startRowIndex" Type="Int32" DefaultValue="1" />
-		</SelectParameters>
-	</asp:ObjectDataSource>
-
-	<asp:ObjectDataSource ID="odsCategoryList" TypeName="DotNetNuke.Modules.DNNTokens.DataProvider.DbContext.CategoryDb" runat="server" EnablePaging="True" SelectMethod="GetPortalCategories" SelectCountMethod="GetTotalNumberOfCategoriesByPortalId" UpdateMethod="UpdateCategory">
-		<SelectParameters>
-			<asp:Parameter Name="portalId" Type="Int32" />
-			<asp:Parameter Name="maximumRows" Type="Int32" DefaultValue="10" />
-			<asp:Parameter Name="startRowIndex" Type="Int32" DefaultValue="1" />
-		</SelectParameters>
-		<UpdateParameters>
-			<asp:Parameter Name="ID" Type="Int32" />
-			<asp:Parameter Name="Name" Type="String" />
-		</UpdateParameters>
-	</asp:ObjectDataSource>
-
-	<asp:ObjectDataSource ID="odsCategoryListSelection" TypeName="DotNetNuke.Modules.DNNTokens.DataProvider.DbContext.CategoryDb" runat="server" SelectMethod="GetAllPortalCategories">
-		<SelectParameters>
-			<asp:Parameter Name="portalId" Type="Int32" />
-		</SelectParameters>
-	</asp:ObjectDataSource>
+<asp:ObjectDataSource ID="odsCategoryListSelection" TypeName="DotNetNuke.Modules.DNNTokens.DataProvider.DbContext.CategoryDb" runat="server" SelectMethod="GetAllPortalCategories">
+	<SelectParameters>
+		<asp:Parameter Name="portalId" Type="Int32" />
+	</SelectParameters>
+</asp:ObjectDataSource>
