@@ -6,6 +6,19 @@
 <div class="License">
 	<h3>Updates</h3>
 	<p class="Owner">
+		<b>Version 01.02.00</b><br /><br />
+	</p>	
+	<h4>Added features:</h4>
+	<ul>
+			<li>SQL scripts can now only be edited  by host user</li>
+	</ul>
+	<br />
+	<h4>Bug fixes:</h4>
+	<ul>
+			<li>Fixed core DNN DateTime and Culture tokens</li>
+	</ul>
+	<br />
+	<p class="Owner">
 		<b>Version 01.01.00</b><br /><br />
 	</p>	
 	<h4>Added features:</h4>

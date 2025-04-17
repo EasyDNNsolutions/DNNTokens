@@ -9,5 +9,7 @@ namespace DotNetNuke.Modules.DNNTokens.Common
 		public const string PortalSettingsRegexPattern = @"\[Portal:.*?\]";
 		public const string TabRegexPattern = @"\[Tab:.*?\]";
 		public const string UserRegexPattern = @"\[User:.*?\]";
+		public const string DateTimeRegexPattern = @"\[DateTime:.*?\]";
+		public const string CultureRegexPattern = @"\[Culture:.*?\]";
 	}
 }

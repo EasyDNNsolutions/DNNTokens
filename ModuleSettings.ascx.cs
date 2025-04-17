@@ -41,6 +41,7 @@ namespace DotNetNuke.Modules.DNNTokens
 					odsTokenList.SelectParameters["portalId"].DefaultValue = PortalId.ToString();
 					odsCategoryList.SelectParameters["portalId"].DefaultValue = PortalId.ToString();
 					odsCategoryListSelection.SelectParameters["portalId"].DefaultValue = PortalId.ToString();
+					ddlTokenTypeSelect.Items[2].Enabled = UserInfo.IsSuperUser;
 
 					//GeneralPortalSettings
 					GeneralPortalSettings generalPortalSettings = GeneralPortalSettingsDb.GetGeneralPortalSettings(PortalId);
@@ -306,15 +307,6 @@ namespace DotNetNuke.Modules.DNNTokens
 			if (ddlTokenTypeSelect.SelectedValue == "2")
 			{
 				string tokenValue = txtTokenValue.Text.Trim();
-				if (tokenValue.ToLowerInvariant().Contains("delete") || tokenValue.ToLowerInvariant().Contains("update") || tokenValue.ToLowerInvariant().Contains("drop"))
-				{
-					lblAddTokenMessage.Visible = true;
-					lblAddTokenMessage.CssClass += " alert alert-danger";
-					lblAddTokenMessage.Text = Localization.GetString("InvalidSQLquery", LocalResourceFile);
-					//lblToastMessage.Text = Localization.GetString("InvalidSQLquery", LocalResourceFile);
-					//ScriptManager.RegisterStartupScript(gvTokenList, gvTokenList.GetType(), "DNNTokensShowToast", "showToast();", true);
-					return;
-				}
 			}
 
 			Token token = new Token
@@ -436,13 +428,7 @@ namespace DotNetNuke.Modules.DNNTokens
 			else if (ddlTokenTypeSelect.SelectedValue == "2")
 			{
 				string tokenValue = txtTokenValue.Text.Trim();
-				if (tokenValue.ToLowerInvariant().Contains("delete") || tokenValue.ToLowerInvariant().Contains("update") || tokenValue.ToLowerInvariant().Contains("drop"))
-				{
-					lblToastMessage.Text = Localization.GetString("InvalidSQLquery", LocalResourceFile);
-					ScriptManager.RegisterStartupScript(gvTokenList, gvTokenList.GetType(), "DNNTokensShowToast", "showToast();", true);
-					return;
-				}
-
+				
 				string errorMessage = string.Empty;
 				DataTable dataTable = SQLExecute.GetSQLResults(txtTokenValue.Text, ref errorMessage);
 				if (errorMessage != string.Empty)
@@ -460,6 +446,11 @@ namespace DotNetNuke.Modules.DNNTokens
 		{
 			DataCache.ClearCache("dnntokens_" + PortalId);
 			Config.Touch();
+
+			lblToastMessage.Text = Localization.GetString("CacheCleared", LocalResourceFile);
+			//Execute Javascript function on postback
+			ScriptManager.RegisterStartupScript(gvTokenList, gvTokenList.GetType(), "DNNTokensShowToast", "showToast();", true);
+
 		}
 
 		protected void btnSearchTokens_Click(object sender, EventArgs e)

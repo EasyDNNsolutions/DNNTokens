@@ -382,4 +382,7 @@ If a token with the same name already exists in the module, it will be updated w
 	<data name="NoTokensFound.Text" xml:space="preserve">
 		<value>No tokens found.</value>
 	</data>
+	<data name="CacheCleared.Text" xml:space="preserve">
+		<value>Cache cleared.</value>
+	</data>
 </root>

@@ -9,10 +9,12 @@ using DotNetNuke.Modules.DNNTokens.DataProvider;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web;
 
 namespace DotNetNuke.Modules.DNNTokens.Components
@@ -31,13 +33,12 @@ namespace DotNetNuke.Modules.DNNTokens.Components
 
 		private void OnBeginRequest(object sender, EventArgs e)
 		{
-			//return;
 			HttpApplication httpApplication = (HttpApplication)sender;
 			if (httpApplication == null)
 				return;
 			HttpContext context = httpApplication.Context;
 
-			bool isCorrectContentType = context.CurrentHandler is CDefault || context.Response.ContentType == "application/json" || context.CurrentHandler.ToString().ToLowerInvariant().Contains("easydnnsolutions");
+			bool isCorrectContentType = context.CurrentHandler is CDefault || context.Response.ContentType == "application/json" || SupportedHandlers.HandlersList.Any(x => x.Equals(context.CurrentHandler.ToString()));
 			if (context == null || !isCorrectContentType || context.Request.QueryString["popUp"] != null || context.Request.QueryString["ctl"] != null
 				//check for the paths that we don't want to filter for 2xc edit mode
 				|| context.Request.Url.AbsolutePath.Contains("tosic_sexycontent/dist/ng-edit")
@@ -145,7 +146,7 @@ namespace DotNetNuke.Modules.DNNTokens.Components
 			{
 				// Perform the string replacement before flushing the stream
 				string originalHtml = _responseBuffer.ToString();
-
+				CultureInfo ciLanguage = Thread.CurrentThread.CurrentUICulture;
 				MatchCollection regexMatxhes = Regex.Matches(originalHtml, Globals.RegexPattern);
 				if (regexMatxhes != null && regexMatxhes.Count > 0 && _tokens != null && _tokens.Count > 0)
 				{
@@ -212,7 +213,44 @@ namespace DotNetNuke.Modules.DNNTokens.Components
 							}
 						}
 					}
+
+					//Replace DateTime tokens
+
+					var datetimeRegexMatxhes = Regex.Matches(originalHtml, Globals.DateTimeRegexPattern);
+					if (datetimeRegexMatxhes != null && datetimeRegexMatxhes.Count > 0)
+					{
+						foreach (Match match in datetimeRegexMatxhes)
+						{
+							string tokenMatch = match.Value;
+							if (!string.IsNullOrEmpty(tokenMatch) && tokenMatch.Contains("[DateTime:"))
+							{
+								tokenMatch = tokenMatch.Substring(tokenMatch.IndexOf("[DateTime:") + "[DateTime:".Length);
+								tokenMatch = tokenMatch.TrimEnd(']');
+								originalHtml = CoreTokenReplace.ReplaceDateTimeToken(_userInfo, originalHtml, match.Value, tokenMatch, ciLanguage);
+							}
+						}
+					}
 				}
+
+				//replace culture tokens
+				if (_generalPortalSettings.RenderDNNTokens)
+				{
+					var cultureRegexMatxhes = Regex.Matches(originalHtml, Globals.CultureRegexPattern);
+					if (cultureRegexMatxhes != null && cultureRegexMatxhes.Count > 0)
+					{
+						foreach (Match match in cultureRegexMatxhes)
+						{
+							string tokenMatch = match.Value;
+							if (!string.IsNullOrEmpty(tokenMatch) && tokenMatch.Contains("[Culture:"))
+							{
+								tokenMatch = tokenMatch.Substring(tokenMatch.IndexOf("[Culture:") + "[Culture:".Length);
+								tokenMatch = tokenMatch.TrimEnd(']');
+								originalHtml = CoreTokenReplace.ReplaceCultureToken(_userInfo, originalHtml, match.Value, tokenMatch, ciLanguage);
+							}
+						}
+					}
+				}
+
 
 				//do another pass becouse of nested tokens
 				if (regexMatxhes != null && regexMatxhes.Count > 0 && _tokens != null && _tokens.Count > 0)
@@ -237,8 +275,14 @@ namespace DotNetNuke.Modules.DNNTokens.Components
 				// Write the modified bytes to the response stream
 				_responseStream.Write(modifiedBytes, 0, modifiedBytes.Length);
 				_responseStream.Flush();
+				_responseStream.Close();
+				_responseBuffer.Clear();
 			}
 
+			public override void Close()
+			{
+				this._responseStream.Close();
+			}
 			public override int Read(byte[] buffer, int offset, int count)
 			{
 				return _responseStream.Read(buffer, offset, count);

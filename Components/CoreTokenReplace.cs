@@ -2,6 +2,9 @@
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Entities.Users;
+using System.Globalization;
+using System;
+using DotNetNuke.Services.Tokens;
 
 namespace DotNetNuke.Modules.DNNTokens.Components
 {
@@ -146,6 +149,134 @@ namespace DotNetNuke.Modules.DNNTokens.Components
 					break;
 				case "username":
 					sourceString = sourceString.Replace(tokenToReplace, userInfo.Username);
+					break;
+			}
+			return sourceString;
+		}
+
+		public static string ReplaceDateTimeToken(UserInfo userInfo, string sourceString, string tokenToReplace, string tokenValue, CultureInfo ciLanguage)
+		{
+			string format = string.Empty;
+			if (tokenValue.Contains("|"))
+			{
+				string[] tokens = tokenValue.Split('|');
+				tokenValue = tokens[0];
+				format = tokens[1];
+			}
+			TimeZoneInfo userTimeZone = userInfo.Profile.PreferredTimeZone;
+		
+			switch (tokenValue.ToLowerInvariant())
+			{
+				case "current":
+					{
+						if (format == string.Empty)
+						{
+							format = "D";
+						}
+
+						sourceString = sourceString.Replace(tokenToReplace, TimeZoneInfo.ConvertTime(DateTime.Now, userTimeZone).ToString(format, ciLanguage));
+						break;
+					}
+				case "now":
+					{
+						if (format == string.Empty)
+						{
+							format = "g";
+						}
+
+						sourceString = sourceString.Replace(tokenToReplace, TimeZoneInfo.ConvertTime(DateTime.Now, userTimeZone).ToString(format, ciLanguage));
+						break;
+					}
+				case "system":
+					if (format == string.Empty)
+					{
+						format = "g";
+					}
+
+					return DateTime.Now.ToString(format, ciLanguage);
+				case "utc":
+					if (format == string.Empty)
+					{
+						format = "g";
+					}
+
+					return DateTime.Now.ToUniversalTime().ToString(format, ciLanguage);
+				default:
+					
+				break;
+			}
+			return sourceString;
+		}
+
+		public static string ReplaceCultureToken(UserInfo userInfo, string sourceString, string tokenToReplace, string tokenValue, CultureInfo ciLanguage)
+		{
+			switch (tokenValue.ToLowerInvariant())
+			{
+				case "englishname":
+					{
+						sourceString = sourceString.Replace(tokenToReplace, CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ciLanguage.EnglishName));
+						break;
+					}
+				case "lcid":
+					{
+						sourceString = sourceString.Replace(tokenToReplace, ciLanguage.LCID.ToString());
+						break;
+					}
+				case "name":
+					{
+						sourceString = sourceString.Replace(tokenToReplace, ciLanguage.Name);
+						break;
+					}
+				case "nativename":
+					{
+						sourceString = sourceString.Replace(tokenToReplace, CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ciLanguage.NativeName));
+						break;
+					}
+				case "twoletterisocode":
+					{
+						sourceString = sourceString.Replace(tokenToReplace, ciLanguage.TwoLetterISOLanguageName);
+						break;
+					}
+				case "threeletterisocode":
+					{
+						sourceString = sourceString.Replace(tokenToReplace, ciLanguage.ThreeLetterISOLanguageName);
+						break;
+					}
+				case "displayname":
+					{
+						sourceString = sourceString.Replace(tokenToReplace, ciLanguage.DisplayName);
+						break;
+					}
+				case "countryname":
+					{
+						if (ciLanguage.IsNeutralCulture)
+						{
+							sourceString = sourceString.Replace(tokenToReplace, string.Empty);
+						}
+						else
+						{
+							RegionInfo country = new RegionInfo(new CultureInfo(ciLanguage.Name, false).LCID);
+							sourceString = sourceString.Replace(tokenToReplace, CultureInfo.CurrentCulture.TextInfo.ToTitleCase(country.EnglishName));
+						}
+						sourceString = sourceString.Replace(tokenToReplace, ciLanguage.DisplayName);
+						break;
+					}
+				case "countrynativename":
+					{
+						if (ciLanguage.IsNeutralCulture)
+						{
+							sourceString = sourceString.Replace(tokenToReplace, string.Empty);
+						}
+						else
+						{
+							RegionInfo country = new RegionInfo(new CultureInfo(ciLanguage.Name, false).LCID);
+							sourceString = sourceString.Replace(tokenToReplace, CultureInfo.CurrentCulture.TextInfo.ToTitleCase(country.NativeName));
+						}
+						sourceString = sourceString.Replace(tokenToReplace, ciLanguage.DisplayName);
+						break;
+					}
+				default:
+
 					break;
 			}
 			return sourceString;

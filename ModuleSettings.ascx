@@ -75,7 +75,7 @@
 					<asp:DropDownList ID="ddlTokenTypeSelect" runat="server" class="form-select">
 						<asp:ListItem Selected="True" Text="Text" resourcekey="liTextHtml" Value="0"></asp:ListItem>
 						<asp:ListItem Text="Razor" resourcekey="liRazor" Value="1"></asp:ListItem>
-						<asp:ListItem Text="Razor" resourcekey="liSQLScript" Value="2"></asp:ListItem>
+						<asp:ListItem Text="SQLScript" resourcekey="liSQLScript" Value="2"></asp:ListItem>
 					</asp:DropDownList>
 				</div>
 				<div class="mb-3">
@@ -202,8 +202,8 @@
 					<Columns>
 						<asp:TemplateField HeaderText="Action">
 							<ItemTemplate>
-								<asp:Button ID="lblEditToken" runat="server" CausesValidation="False" CommandArgument='<%# Eval("Id") %>' CommandName="EditToken" CssClass="btn btn-outline-primary btn-sm" Text="Edit"></asp:Button>
-								<asp:Button ID="lbDeleteToken" runat="server" CausesValidation="False" CommandArgument='<%# Eval("Id") %>' CommandName="DeleteToken" OnClientClick="return confirm('Do you really want to delete this token?');" CssClass="btn btn-outline-danger btn-sm" Text="Delete"></asp:Button>
+								<asp:Button ID="lblEditToken" runat="server" Enabled='<%# (Eval("TokenType").ToString() =="SQLScript") && !UserInfo.IsSuperUser ? false : true %>' CausesValidation="False" CommandArgument='<%# Eval("Id") %>' CommandName="EditToken" CssClass="btn btn-outline-primary btn-sm" Text="Edit"></asp:Button>
+								<asp:Button ID="lbDeleteToken" runat="server" Enabled='<%# (Eval("TokenType").ToString() =="SQLScript") && !UserInfo.IsSuperUser ? false : true %>' CausesValidation="False" CommandArgument='<%# Eval("Id") %>' CommandName="DeleteToken" OnClientClick="return confirm('Do you really want to delete this token?');" CssClass="btn btn-outline-danger btn-sm" Text="Delete"></asp:Button>
 							</ItemTemplate>
 							<ItemStyle CssClass="text-center" Width="150" />
 							<HeaderStyle CssClass="text-center" Width="150" />

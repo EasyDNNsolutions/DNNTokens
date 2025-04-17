@@ -1,6 +1,6 @@
 <dotnetnuke type="Package" version="5.0">
   <packages>
-	<package name="DNNTokens" type="Module" version="01.01.00">
+	<package name="DNNTokens" type="Module" version="01.02.00">
 	  <friendlyName>DNNTokens</friendlyName>
 	  <description>DNN Tokens module</description>
 	  <iconFile>~/DesktopModules/DNNTokens/Assets/images/module_icon.png</iconFile>
@@ -33,7 +33,7 @@
 			<script type="UnInstall">
 			  <path>Providers\DataProviders\SqlDataProvider</path>
 			  <name>Uninstall.SqlDataProvider</name>
-			  <version>01.01.00</version>
+			  <version>01.02.00</version>
 			</script>
 		  </scripts>
 		</component>
@@ -90,7 +90,7 @@
 			<attributes>
 			  <businessControllerClass>DotNetNuke.Modules.DNNTokens.Components.FeatureController, DNNTokens</businessControllerClass>
 			  <desktopModuleID>[DESKTOPMODULEID]</desktopModuleID>
-			  <upgradeVersionsList>01.00.00,01.01.00</upgradeVersionsList>
+			  <upgradeVersionsList>01.00.00,01.01.00,01.02.00</upgradeVersionsList>
 			</attributes>
 		  </eventMessage>
 		</component>

@@ -131,6 +131,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\SupportedHandlers.cs" />
     <Compile Include="Common\Globals.cs" />
     <Compile Include="Components\PortalTabListRender.cs" />
     <Compile Include="Components\CoreTokenReplace.cs" />
